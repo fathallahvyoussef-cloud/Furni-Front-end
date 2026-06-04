@@ -1,0 +1,53 @@
+<!-- button 1 -->
+<app-button type="primary" (clicked)="save()">Save</app-button>
+
+<!-- button 2 -->
+<app-page1 type="primary" (clicked)="show()">Show</app-page1>
+
+<!-- modal--> 
+<app-modal [isOpen]="showModal" (closed)="showModal = false">
+  <h2>My Modal</h2>
+</app-modal>
+
+<!-- table-->
+
+<app-table
+  [columns]="[
+  {field : 'id', header : 'id'},
+   { field: 'name', header: 'Name' },
+    { field: 'email', header: 'Email' },
+    { field: 'age', header: 'Age' },
+    {field : 'isActive' , header : 'Active' }
+  ]"
+  [data]="users">
+</app-table>
+
+<!--form field -->
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <app-form-field
+    label="Name"
+    placeholder="Enter your name"
+    [control]="form.get('name')">
+  </app-form-field>
+
+  <app-form-field
+    label="Email"
+    type="email"
+    placeholder="Enter your email"
+    [control]="form.get('email')">
+  </app-form-field>
+
+  <app-form-field
+    label="Password"
+    type="password"
+    placeholder="Enter your password"
+    [control]="form.get('password')">
+  </app-form-field>
+
+  <button type="submit">Register</button>
+
+</form>
+
+<app-toast></app-toast>

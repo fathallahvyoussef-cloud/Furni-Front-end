@@ -1,0 +1,90 @@
+
+<section class="h-100 bg-light py-5">
+  <div class="container">
+    <h2 class="mb-4 fw-bold text-dark">Shopping Cart</h2>
+    <div class="row">
+      <!-- Cart Items List -->
+      <div class="col-lg-8">
+        <div class="card border-0 shadow-sm mb-4" *ngIf="cartItems().length > 0; else emptyCart">
+          <div class="card-body p-4">
+  <div *ngFor="let item of cartItems(); let last = last" class="row align-items-center">
+    <div  *ngFor="let p of item.items let i=index" >
+              <div class="col-3 col-md-2">
+                <img [src]="'http://localhost:3000/uploads/' + p.productId.image"
+                     class="img-fluid rounded shadow-sm" [alt]="p.productId.name">
+              </div>
+              <div class="col-9 col-md-4">
+                <h6 class="fw-bold mb-1 text-truncate">{{ p.productId.name }}</h6>
+                <p class="text-muted small mb-0">{{ p.productId.description | slice:0:60 }}...</p>
+              </div>
+              <div class="col-6 col-md-3 mt-3 mt-md-0">
+                <div class="input-group input-group-sm border rounded-pill overflow-hidden">
+                  <button class="btn btn-link text-dark text-decoration-none px-3" (click)="updateQuantity(p.productId, -1)">
+                    <i class="fas fa-minus small"></i>
+                  </button>
+                  <input type="text" class="form-control border-0 text-center bg-transparent fw-bold" 
+                         [value]="cartItems()[0].items[i].productId.qte"  readonly>
+                  <button class="btn btn-link text-dark text-decoration-none px-3" (click)="updateQuantity(p.productId, 1)">
+                    <i class="fas fa-plus small"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-4 col-md-2 mt-3 mt-md-0 text-center">
+                <span class="fw-bold text-dark">{{ p.productId.price * item.quantity | currency:'USD' }}</span> 
+              </div>
+              <div class="col-2 col-md-1 mt-3 mt-md-0 text-end">
+                <button class="btn btn-link text-danger p-0"  (click)="removeItem(p.productId._id)"> 
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+              <hr *ngIf="!last" class="my-4 opacity-10">
+            </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty Cart State -->
+        <ng-template #emptyCart>
+          <div class="card border-0 shadow-sm p-5 text-center">
+            <div class="py-5">
+              <i class="fas fa-shopping-bag fa-4x text-muted mb-4 opacity-50"></i>
+              <h4 class="fw-bold">Your cart is empty</h4>
+              <p class="text-muted mb-4">Looks like you haven't added any products to your cart yet.</p>
+              <a routerLink="/products" class="btn btn-primary rounded-pill px-5 shadow-sm">Continue Shopping</a>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+
+     
+      <!-- Order Summary Sidebar -->
+      <div class="col-lg-4">
+        <div class="card border-0 shadow-sm sticky-top" style="top: 2rem;">
+          <div class="card-body p-4">
+            <h5 class="fw-bold mb-4">Order Summary</h5>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Subtotal</span>
+              <span class="fw-semibold">{{ subtotal() | currency:'USD' }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Shipping</span>
+              <span class="text-success fw-bold small">FREE</span>
+            </div>
+            <hr class="my-4">
+            <div class="d-flex justify-content-between mb-4">
+              <span class="h5 fw-bold">Total</span>
+              <span class="h5 fw-bold text-primary">{{ total() | currency:'USD' }}</span>
+            </div>
+            <button class="btn btn-dark btn-lg w-100 rounded-pill shadow-sm py-3 fw-bold mb-3" 
+                    [disabled]="cartItems().length === 0">
+              Checkout Now
+            </button>
+            <div class="text-center">
+              <small class="text-muted"><i class="fas fa-shield-alt me-1"></i> Secure Checkout Guaranteed</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

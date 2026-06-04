@@ -1,0 +1,28 @@
+<!-- product-card.html — remove the outer wrappers -->
+<a class="product-item" (click)="onSelect()" style="position: relative; display: block;">
+  
+  <img 
+    [src]="image" 
+    class="img-fluid product-thumbnail"
+    [alt]="title"
+  >
+
+  <h3 class="product-title">{{ title }}</h3>
+
+  <strong class="product-price">{{ price }} $</strong>
+
+  
+
+  <span class="icon-cross" (click)="$event.stopPropagation(); productDetail(id)">
+    <img src="assets/images/cross.svg" class="img-fluid">
+  </span>
+
+  <span class="icon-edit" (click)="$event.stopPropagation(); editProduct(id)" style="position: absolute; top: 15px; right: 15px; width: 20px; cursor: pointer;">
+    <img src="assets/images/edit.svg" class="img-fluid">
+  </span>
+
+  <span class="icon-edit" (click)="$event.stopPropagation(); deleteProduct(id)" style="position: absolute; top: 15px; right: 45px; width: 20px; cursor: pointer;">
+    <img src="assets/images/delete.svg" class="img-fluid">
+  </span>
+
+</a>

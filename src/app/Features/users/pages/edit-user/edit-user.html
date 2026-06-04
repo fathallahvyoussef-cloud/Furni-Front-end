@@ -1,0 +1,22 @@
+<div class="edit-user-container">
+  <h2>Edit User Profile</h2>
+  
+  <form class="product-form" [formGroup]="form" (ngSubmit)="update()">
+    <div class="mb-3">
+                <app-form-field label="Full Name" type="text" 
+        [control]="getControl('fullName')" required>
+      </app-form-field>
+              </div>
+
+    <div class="mb-3">
+                <app-form-field label="email Name" type="email" 
+        [control]="getControl('email')" required>
+      </app-form-field>
+              </div>
+
+    <div class="form-actions">
+      <app-button type="primary">Update Product</app-button>
+      
+    </div>
+  </form>
+</div>

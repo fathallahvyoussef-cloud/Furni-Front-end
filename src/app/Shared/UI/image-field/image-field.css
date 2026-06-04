@@ -1,0 +1,21 @@
+.upload-container {
+  border: 2px dashed #ccc;
+  padding: 16px;
+  text-align: center;
+  width: 250px;
+}
+
+.preview-box img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.placeholder {
+  color: #888;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+}

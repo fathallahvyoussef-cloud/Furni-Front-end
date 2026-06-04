@@ -1,0 +1,45 @@
+<div class="container">
+  <header>
+    <h1>Create New Product</h1>
+    <p>Fill out the details below to add a new product to the catalog.</p>
+  </header>
+
+  <form class="product-form" [formGroup]="form" (ngSubmit)="save()">
+    <div class="field-group">
+
+
+      <app-form-field label="Product Name" type="text" placeholder="e.g. Ergonomic Chair"
+        [control]="getControl('name')" required>
+      </app-form-field>
+    </div>
+
+    <div class="field-group">
+      <app-form-field label="Price ($)" type="number" placeholder="0.00" [control]="getControl('price')" required>
+      </app-form-field>
+    </div>
+
+    <div class="field-group">
+      <app-form-field label="Quantity" type="number" placeholder="0" [control]="getControl('qte')" required>
+      </app-form-field>
+    </div>
+
+    <div class="field-group">
+      <app-form-field label="Description" type="textarea" placeholder="Provide a brief overview of the product..."
+        [control]="getControl('description')" required>
+      </app-form-field>
+    </div>
+
+    <div class="field-group">
+
+      <app-image-field [maxSizeMB]="3" [allowedTypes]="['image/png','image/jpeg']" 
+        (fileSelected)="onImageSelected($event)" (error)="onImageError($event)" required>
+      </app-image-field>
+      
+    </div>
+
+    <footer class="form-actions">
+      <app-button type="primary">Create Product</app-button>
+      <app-button type="primary" (click)="cancel()">Cancel</app-button>
+    </footer>
+  </form>
+</div>

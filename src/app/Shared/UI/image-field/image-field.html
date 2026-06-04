@@ -1,0 +1,31 @@
+<div class="upload-container">
+
+  <input
+    type="file"
+    accept="image/*"
+    required
+    (blur)="touched = true"
+    (change)="onFileChange($event)"
+    
+  />
+
+  <!-- Preview -->
+  <div *ngIf="preview" class="preview-box">
+    <img [src]="preview" alt="preview" />
+    <button type="button" (click)="removeImage()">Remove</button>
+  </div>
+
+  <!-- Placeholder -->
+  <div *ngIf="!preview" class="placeholder">
+    <p>Select an image to upload.</p>
+  </div>
+
+  <!-- Error -->
+  <p class="error" *ngIf="!preview && (touched || isSubmitted)">
+    No image imported. Please select a product image.
+  </p>
+  <p class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+</div>
