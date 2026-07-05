@@ -14,7 +14,7 @@ import { ApiCalls } from '../../../../Core/services/api-calls';
 export class ProductList implements OnInit {
 
    products = signal<any[]>([]);
-   url = "http://localhost:3000/products"
+   url = "https://furni-back-end.onrender.com/products"
 
 
   constructor(

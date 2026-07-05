@@ -16,7 +16,7 @@ export class ApiCalls {
 
   post<T>(url: string, body: any) {
     
-    return this.http.post<T>(url, body);
+    return this.http.post<any>(url, body);
   }
 
   put(url: string, body: any) {
@@ -26,13 +26,19 @@ export class ApiCalls {
   }
 
   delete(url: string) {
-    return this.http.delete(url);
+    return this.http.delete<any>(url);
   }
 
   getById(url: string, id: string) {
     
     return this.http.get(`${url}/${id}`);
     
+  }
+
+  patch(url: string, body: any) {
+    
+    return this.http.patch(url, body);    
+  
   }
 
 }

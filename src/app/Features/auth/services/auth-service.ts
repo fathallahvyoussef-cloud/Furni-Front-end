@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 interface DecodedToken {
   id: string;
   fullName: string;
+  role: string;
   exp: number;
 }
 
@@ -26,14 +27,21 @@ export class AuthService {
     fullName: string;
     email: string;
     password: string;
+    adress: string;
+    phone: string;
   }) {
 
     // Prepare data (business logic)
     const payload = {
       fullName: form.fullName.trim(),
       email: form.email.trim().toLowerCase(),
-      password: form.password
+      password: form.password,
+      adress: form.adress,
+      phone: form.phone
+      
     };
+
+    console.log(payload);
 
     // Call API
     return this.api.signUp(payload).pipe(
@@ -83,7 +91,7 @@ password : string;
   
   // decode token
   private getDecodedToken(): DecodedToken | null {
-  const token = localStorage.getItem('token'); // use whatever key you store it under
+  const token = localStorage.getItem('token'); 
   if (!token) return null;
   try {
     const payload = JSON.parse(atob(token.split('.')[1]));
@@ -92,6 +100,17 @@ password : string;
     return null;
   }
 }
+
+
+// is logged
+  isAuthenticated(): boolean {
+    const user = this.userSubject.value;
+    if (!user) return false;
+
+    // exp is in seconds, convert current time to seconds for comparison
+    const currentTime = Math.floor(Date.now() / 1000);
+    return user.exp > currentTime;
+  }
 
 // logout
 logout(): void {
@@ -102,6 +121,17 @@ logout(): void {
 
     this.router.navigate(['/login']);
   }
+
+   getRole(): string | null {
+    return this.userSubject.value?.role || null;
+  }
+
+  // get token
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+
 
   
 }

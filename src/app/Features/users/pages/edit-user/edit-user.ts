@@ -17,7 +17,7 @@ import { ApiCalls } from '../../../../Core/services/api-calls';
 export class EditUser {
 
   form!: FormGroup;
-  url = "http://localhost:3000/users"
+  url = "https://furni-back-end.onrender.com/users"
 
 
   constructor(

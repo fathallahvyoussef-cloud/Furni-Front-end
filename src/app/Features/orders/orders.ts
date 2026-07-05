@@ -8,41 +8,39 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { ApiCalls } from '../../../../Core/services/api-calls';
-
-
+import { ApiCalls } from '../../Core/services/api-calls';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-list-users',
-  imports: [MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule, MatIconModule],
-  
+  selector: 'app-orders',
+  imports: [CommonModule,MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule, MatIconModule],
   standalone: true,
-  templateUrl: './list-users.html',
-  styleUrl: './list-users.css',
+  templateUrl: './orders.html',
+  styleUrl: './orders.css',
 })
-export class ListUsers implements AfterViewInit,OnInit {
+export class Orders {
 
   constructor( private apicall : ApiCalls,  private router : Router) {}
 
-  users = signal<any[]>([]);
-  url = "https://furni-back-end.onrender.com/users"
+  orders = signal<any[]>([]);
+  url = "https://furni-back-end.onrender.com/orders"
   
 
   private _liveAnnouncer = inject(LiveAnnouncer);
 
    ngOnInit() {
-    this.getAllUsers();
+    this.getAllOrders();
   }
 
-  displayedColumns: string[] = ['_id', 'full Name', 'email','Actions'];
-  dataSource = new MatTableDataSource(this.users());
+  displayedColumns: string[] = ['User Id', 'Order Id', 'full Name', 'adress','status','Actions'];
+  dataSource = new MatTableDataSource(this.orders());
 
   @ViewChild(MatSort) sort!: MatSort;
  
 
 
   ngAfterViewInit() {
-    this.getAllUsers();
+    this.getAllOrders();
     this.dataSource.sort = this.sort;
   }
 /*** Apply filter  */
@@ -64,30 +62,36 @@ export class ListUsers implements AfterViewInit,OnInit {
     }
   }
 
-  //  get all users
-  getAllUsers() {
+  //  get all orders
+  getAllOrders() {
     this.apicall.get(this.url).subscribe((res) => {
       
-      this.users.set(res);
-      this.dataSource.data = this.users();
+      this.orders.set(res);
+      this.dataSource.data = this.orders();
     });
   }
 
-// edit
-  editUser(user: any) {
-  this.router.navigate(['/users','edit', user._id]);
+// delivered
+  validateOrder(id: any) {
+  
+    this.apicall.patch(this.url+'/delivered/'+id,null).subscribe((res: any) => {
+      alert(res.message || 'Order delivered successfully');
+      this.getAllOrders();
+    });
 
 }
 
-//delete
-deleteUser(id: string) {
-  if (confirm('Are you sure you want to delete this user?')) {
-    this.apicall.delete(this.url+'/delete/'+id).subscribe((res: any) => {
-      alert(res.message || 'User deleted successfully');
-      this.getAllUsers();
+//cancel
+cancelOrder(id: string) {
+  if (confirm('Are you sure you want to cancel this order?')) {
+    this.apicall.patch(this.url+'/cancel/'+id, null).subscribe((res: any) => {
+      alert(res.message || 'Order canceled successfully');
+      this.getAllOrders();
     });
   }
 }
+
+
 
 
 

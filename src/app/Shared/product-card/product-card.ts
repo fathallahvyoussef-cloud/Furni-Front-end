@@ -1,13 +1,19 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { AuthService } from '../../Features/auth/services/auth-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
-  imports: [],
+  imports: [CommonModule],
   standalone: true,
   templateUrl: './product-card.html',
   styleUrl: './product-card.css',
 })
 export class ProductCard {
+
+    private auth = inject(AuthService);
+
+  user$ = this.auth.user$
 
     @Input() id: string = '';
    @Input() title: string = '';
@@ -38,6 +44,10 @@ export class ProductCard {
   deleteProduct(id : string) {
     
     this.delete.emit(id);
+  }
+
+  getRole() : string | null{
+    return this.auth.getRole()
   }
 
   

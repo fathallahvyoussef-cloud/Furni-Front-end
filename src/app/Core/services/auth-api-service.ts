@@ -13,7 +13,7 @@ interface DecodedToken {
 })
 export class AuthApiService {
 
-  userUrl = "http://localhost:3000/"
+  userUrl = "https://furni-back-end.onrender.com/"
   private userSubject =
     new BehaviorSubject<DecodedToken | null>(null);
 
@@ -28,9 +28,9 @@ export class AuthApiService {
 
 
 
-  signUp(data: { fullName: string; email: string; password: string }) {
+  signUp(data: { fullName: string; email: string; password: string}) {
     
-    return this.http.post<{ message: any }>(this.userUrl + 'users/inscri', data)
+    return this.http.post<any>(this.userUrl + 'users/inscri', data)
   }
 
   
@@ -50,5 +50,11 @@ export class AuthApiService {
 
     
   }
+
+  addAdmin(data : any ){
+
+      return this.http.post<{ message: any }>(this.userUrl + 'admin/register', data)
+
+}
 
 }

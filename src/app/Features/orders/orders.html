@@ -1,0 +1,82 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+
+<table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+       class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="User Id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+      _id
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.userId._id}} </td>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="Order Id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">
+      Order Id
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element._id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="full Name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+      Full Name
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.userId.fullName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="adress">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      Adress
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.userId.adress}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by weight">
+      Status
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+  <!-- actions Column -->
+<ng-container matColumnDef="Actions">
+  <th mat-header-cell *matHeaderCellDef> Actions </th>
+
+  <td mat-cell *matCellDef="let element">
+    
+    <div  *ngIf="element.status == 'pending' ">
+    <button mat-icon-button color="primary" (click)="validateOrder(element._id)">
+      <mat-icon>local_shipping</mat-icon>
+    </button>
+    </div>
+
+    <div  *ngIf="element.status == 'pending' ">
+    <button  mat-icon-button color="warn" (click)="cancelOrder(element._id)">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    </div>
+
+  </td>
+</ng-container>
+   
+  
+
+  
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+  </tr>
+  
+</table>

@@ -31,6 +31,16 @@ import { FormControl, ReactiveFormsModule, ControlContainer, FormGroupDirective,
           Please enter both your first and last name.
         </small>
 
+
+        <small *ngIf="control.errors?.['invalidPhoneNumber']">
+          Please enter valid phone number.
+        </small>
+
+        <small 
+        *ngIf=" control.errors?.['invalidAddress']">
+  Please enter a valid address format.
+</small>
+
         <small *ngIf="control.errors?.['pattern']">
           Only letters
         </small>

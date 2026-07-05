@@ -16,7 +16,7 @@ import { ProdService } from '../../service/prod-service';
 export class AddProduct {
   
       form!: FormGroup;
-      url = "http://localhost:3000/products/create"
+      url = "https://furni-back-end.onrender.com/products/create"
 
       constructor(private fb: FormBuilder, private prod_service : ProdService) { }
 

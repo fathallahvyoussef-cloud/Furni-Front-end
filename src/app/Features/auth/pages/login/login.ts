@@ -14,10 +14,18 @@ import { Router } from '@angular/router';
 })
 export class Login implements OnInit {
   form!: FormGroup;
+  token : any
 
   constructor(private fb: FormBuilder, private auth: AuthService,private router: Router) {}
 
   ngOnInit() : void{
+
+    this.token = this.auth.getToken()
+
+    if (this.token){
+      this.router.navigate(['/products'])
+    }
+
     this.form = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]

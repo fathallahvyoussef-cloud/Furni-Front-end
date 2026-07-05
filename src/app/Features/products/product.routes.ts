@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from '../../Core/guards/auth-guard';
 
 export const PRODUCT_ROUTES: Routes = [
   {

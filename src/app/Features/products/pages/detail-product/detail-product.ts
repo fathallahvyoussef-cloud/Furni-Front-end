@@ -28,7 +28,7 @@ export class DetailProduct implements OnInit {
   
 
 
-  url = "http://localhost:3000"
+  url = "https://furni-back-end.onrender.com"
 
 
   constructor(
