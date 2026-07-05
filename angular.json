@@ -17,7 +17,9 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/reusable",
+             "outputPath": "dist/reusable",
+            
+              "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -42,6 +44,7 @@
                 "src/assets/js/custom.js"
 ]
           },
+          
           "configurations": {
             "production": {
               "budgets": [
