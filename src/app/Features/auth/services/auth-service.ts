@@ -105,13 +105,14 @@ password : string;
 // is logged
   isAuthenticated(): boolean {
     const user = this.getDecodedToken()
-    
+     
     if (user == null) return false;
 
     // exp is in seconds, convert current time to seconds for comparison
     const currentTime = Math.floor(Date.now() / 1000);
     
-    return Number(user.exp) > currentTime;
+
+    return user.exp > currentTime;
     
   }
 
@@ -119,6 +120,7 @@ password : string;
 logout(): void {
 
     localStorage.removeItem('token');
+    sessionStorage.clear();
 
     this.userSubject.next(null);
 

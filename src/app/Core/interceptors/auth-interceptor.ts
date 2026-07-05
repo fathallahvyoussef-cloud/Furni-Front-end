@@ -16,6 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (
   
   // If user is not logged in,
   // send request unchanged
+  console.log('interceptor token : '+token)
   if (!token) {
     return next(request);
   }
