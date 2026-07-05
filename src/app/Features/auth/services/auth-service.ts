@@ -104,12 +104,15 @@ password : string;
 
 // is logged
   isAuthenticated(): boolean {
-    const user = this.userSubject.value;
-    if (!user) return false;
+    const user = this.getDecodedToken()
+    
+    if (user == null) return false;
 
     // exp is in seconds, convert current time to seconds for comparison
     const currentTime = Math.floor(Date.now() / 1000);
-    return user.exp > currentTime;
+    
+    return Number(user.exp) > currentTime;
+    
   }
 
 // logout
