@@ -1,5 +1,13 @@
-
-
+<div *ngIf="getRole() == 'admin'" class="position-relative border rounded p-4" style="height: 250px;">
+    
+    <button
+        type="button"
+        class="btn btn-primary rounded-circle position-absolute top-0 start-0 m-3 d-flex align-items-center justify-content-center"
+        style="width: 45px; height: 45px;"
+         (click)="addProduct()">
+        +
+    </button>
+</div>
 <div class="product-section">
   <div class="container">
 
@@ -14,7 +22,7 @@
           [price]="p.price"
           [description]="p.description"
           
-          [image]="'http://localhost:3000/uploads/' + p.image"
+          [image]="'https://furni-back-end.onrender.com/uploads/' + p.image"
           (selectProduct)="handleProduct($event)"
           [id]="p._id"
           (viewDetail)="detailProduct($event)"

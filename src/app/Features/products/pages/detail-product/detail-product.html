@@ -4,7 +4,7 @@
     <!-- Product Image -->
     <div class="col-12 col-md-6 mb-4">
       <div class="product-image-wrapper shadow-sm rounded overflow-hidden">
-        <img  [src]="'http://localhost:3000/uploads/' + product().image" 
+        <img  [src]="'https://furni-back-end.onrender.com/uploads/' + product().image" 
              alt="product" 
              class="img-fluid w-100 object-fit-cover">
       </div>
@@ -25,6 +25,11 @@
       <div class="description-section mb-4">
         <h5 class="fw-bold">Description</h5>
         <p class="text-muted lead">{{ product().description }}</p>
+      </div>
+
+      <div class="Quantity-section mb-4">
+        <h5 class="fw-bold">Quantity : </h5>
+        <p class="text-muted lead">{{ product().qte }}</p>
       </div>
 
       <form [formGroup]="form" (ngSubmit)="addToCart(product())">

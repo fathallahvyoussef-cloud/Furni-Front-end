@@ -54,4 +54,8 @@ ngOnInit(){
     this.auth.logout();
   }
 
+  getRole(){
+    return this.auth.getRole()
+  }
+
 }

@@ -13,6 +13,7 @@ import { Orders } from './Features/orders/orders';
 
 
 export const routes: Routes = [
+   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'button', component: ButtonComponent },
   { path: 'main', component: MainComponent },
   { path: 'login', component: Login },

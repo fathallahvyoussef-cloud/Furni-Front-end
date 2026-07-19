@@ -1,8 +1,9 @@
-import { Component, OnInit, signal,computed } from '@angular/core';
+import { Component, OnInit, signal,computed, inject } from '@angular/core';
 import { ProductCard } from '../../../../Shared/product-card/product-card';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiCalls } from '../../../../Core/services/api-calls';
+import { AuthService } from '../../../auth/services/auth-service';
 
 @Component({
   selector: 'app-product-list',
@@ -16,6 +17,9 @@ export class ProductList implements OnInit {
    products = signal<any[]>([]);
    url = "https://furni-back-end.onrender.com/products"
 
+
+
+       private auth = inject(AuthService);
 
   constructor(
     private router: Router,
@@ -53,6 +57,15 @@ deleteProduct(id: string) {
     alert('product deleted successfully')
   });
 }
+
+addProduct() : void{
+  console.log('testetsesdjq')
+  this.router.navigate(['/products','create'])
+}
+
+getRole() : string | null{
+    return this.auth.getRole()
+  }
 
  
 }
