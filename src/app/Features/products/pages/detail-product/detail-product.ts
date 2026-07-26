@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ApiCalls } from '../../../../Core/services/api-calls';
 import { AuthService } from '../../../auth/services/auth-service';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -33,10 +33,12 @@ export class DetailProduct implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private api : ApiCalls,
     private fb : FormBuilder
   ) {}
 
+  
   ngOnInit(): void {
 
     const id = this.route.snapshot.paramMap.get('id');
@@ -48,7 +50,6 @@ export class DetailProduct implements OnInit {
         quantity : [1, [Validators.required , Validators.min(1)]]
         
       });
-    
     
     
   }
@@ -77,6 +78,9 @@ export class DetailProduct implements OnInit {
     });
 
     console.log(this.product().qte)
+    
+    
+
     if (this.form.valid && (this.form.value.quantity <= this.product().qte)) {
       const payload = {
         userId: this.userId,
@@ -88,12 +92,15 @@ export class DetailProduct implements OnInit {
           
           next: (res) => {
           alert('Product added to cart successfully.');
-            
           },
           error: (err) => {
             alert('An error occurred while adding the product to the cart.');
           }
         });
+        
+        
+
+
     }
     else{
       alert('Invalid quantity')
