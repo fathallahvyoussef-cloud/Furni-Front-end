@@ -10,7 +10,7 @@
   <div *ngFor="let item of cartItems(); let last = last" class="row align-items-center">
     <div  *ngFor="let p of item.items let i=index" >
               <div class="col-3 col-md-2">
-                <img [src]="'https://furni-back-end.onrender.com/uploads/' + p.productId.image"
+                <img [src]="p.productId.image"
                      class="img-fluid rounded shadow-sm" [alt]="p.productId.name">
               </div>
               <div class="col-9 col-md-4">

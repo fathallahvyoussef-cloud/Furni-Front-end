@@ -21,8 +21,7 @@
           [title]="p.name"
           [price]="p.price"
           [description]="p.description"
-          
-          [image]="'https://furni-back-end.onrender.com/uploads/' + p.image"
+          [image]=" p.image"
           (selectProduct)="handleProduct($event)"
           [id]="p._id"
           (viewDetail)="detailProduct($event)"
