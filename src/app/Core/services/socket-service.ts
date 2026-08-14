@@ -14,7 +14,8 @@ export class SocketService {
   private socket: Socket; 
   
     constructor() {
-      this.socket = io('http://localhost:5000'); // Replace with your actual WebSocket server URL
+      this.socket = io('https://furni-back-end.onrender.com'); 
+      // this.socket = io('http://localhost:5000'); // Replace with your actual WebSocket server URL
     }
   
     trackOrder(orderId: string) {
