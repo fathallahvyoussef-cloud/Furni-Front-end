@@ -44,7 +44,7 @@ export class EditUser {
   getUserById(id: string) {
     this.apicalls.getById(this.url,id).subscribe((res) => {
       
-      this.form.patchValue(res);
+      // this.form.patchValue(res);
       
     });
   }

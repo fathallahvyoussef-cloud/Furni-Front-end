@@ -19,7 +19,12 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'signup', component: Signup },
   { path: 'home', component: Home },
-  { path : 'orders', canActivate : [authGuard,adminGuard] ,component : Orders },
+  { path : 'orders', canActivate : [authGuard] ,
+
+    loadChildren: () =>
+      import('./Features/orders/orders.routes')
+        .then(m => m.ORDERS_ROUTES)
+   },
 
   {
     path: 'products',

@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ApiCalls } from '../../Core/services/api-calls';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../auth/services/auth-service';
 
 @Component({
   selector: 'app-orders',
@@ -20,10 +21,15 @@ import { CommonModule } from '@angular/common';
 })
 export class Orders {
 
-  constructor( private apicall : ApiCalls,  private router : Router) {}
+  constructor( private apicall : ApiCalls,  private router : Router, private auth : AuthService) {}
+
+  buttonIcons: { [key: string]: string } = {};
+  order : any = {}
+  
 
   orders = signal<any[]>([]);
   url = "https://furni-back-end.onrender.com/orders"
+  testUrl = "http://localhost:5000/orders";
   
 
   private _liveAnnouncer = inject(LiveAnnouncer);
@@ -42,6 +48,7 @@ export class Orders {
   ngAfterViewInit() {
     this.getAllOrders();
     this.dataSource.sort = this.sort;
+    
   }
 /*** Apply filter  */
   applyFilter(event: Event) {
@@ -64,18 +71,80 @@ export class Orders {
 
   //  get all orders
   getAllOrders() {
+
+    
+    
+    const id = this.auth.getDecodedToken()
     this.apicall.get(this.url).subscribe((res) => {
       
+      if (id?.id && id?.role == 'user'){
+        // filter
+
+                    res = res.filter((order: any ) => order.userId._id === id?.id);
+                
+      }
+      
       this.orders.set(res);
+     
       this.dataSource.data = this.orders();
+       this.loadIcons(this.orders())
     });
+
+
+  
+
+           
   }
 
-// delivered
-  validateOrder(id: any) {
+                                    // update order
+  updateOrder(id: any) {
   
-    this.apicall.patch(this.url+'/delivered/'+id,null).subscribe((res: any) => {
-      alert(res.message || 'Order delivered successfully');
+    let nextStatus : string = ""
+            this.order = this.getOrderById(id)
+
+
+            
+            if (this.order.status === 'Pending') {
+            
+
+            
+            nextStatus = 'Order Placed';
+            this.buttonIcons[id] = 'inventory';
+           
+
+          } else if (this.order.status === 'Order Placed') {
+
+
+            nextStatus = 'Processing';
+            this.buttonIcons[id] = 'local_shipping';
+            
+
+          } else if (this.order.status === 'Processing') {
+
+            nextStatus = 'In Transit';
+            this.buttonIcons[id] = 'check_circle';
+            
+
+          } else if (this.order.status === 'In Transit') {
+            
+
+            nextStatus = 'Delivered';
+            
+            
+          }
+
+          console.log(nextStatus)
+           this.order = { ...this.order, status: nextStatus };
+
+        // Update the Signal collection 
+        this.orders.update(allOrders =>
+          allOrders.map(o => o._id === id ? { ...o, status: nextStatus } : o)
+        );
+          
+
+
+    this.apicall.patch(this.url+'/update/'+id,this.order).subscribe((res: any) => {
+      alert(res.message || 'Order status updated successfully');
       this.getAllOrders();
     });
 
@@ -91,9 +160,51 @@ cancelOrder(id: string) {
   }
 }
 
+getRole (){
+  return this.auth.getRole()
+}
+
+getOrderById(id: any) {
+  return this.orders().find(o => o._id === id);
+}
 
 
 
+loadIcons(orders : any){
+  
+  for (let i = 0; i < this.orders().length; i++) {
+            
+            const order = this.orders()[i];
+ 
+     if (order.status === 'Pending') {
+             
+ 
+             this.buttonIcons[order._id] = 'shopping_bag';
+            
+ 
+           } else if (order.status === 'Order Placed') {
+ 
+ 
+             this.buttonIcons[order._id] = 'inventory';
+             
+             
+ 
+           } else if (order.status === 'Processing') {
+ 
+             this.buttonIcons[order._id] = 'local_shipping';            
+             
+ 
+           } else if (order.status === 'In Transit') {
+             
+ 
+             this.buttonIcons[order._id] = 'check_circle';
+             
+           }
+            }
+}
 
 
+trackOrder(id: string) {
+  this.router.navigate(['/orders/live', id]); 
+}
 }

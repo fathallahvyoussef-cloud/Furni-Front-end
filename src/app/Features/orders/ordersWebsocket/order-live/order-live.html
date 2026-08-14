@@ -1,0 +1,50 @@
+<div class="tracker-card">
+  
+
+  <div *ngIf="isLoading" class="loading-state">
+    <p>Loading order status...</p>
+  </div>
+
+  <div *ngIf="!isLoading && currentOrder">
+    
+    <div class="header">
+      <div>
+        <h3>Live Order Tracker</h3>
+        <p class="sub">Order ID: <strong>{{ currentOrder._id }}</strong></p>
+      </div>
+      <span class="pulse-badge">● WebSocket Active</span>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-details">
+      <p><strong>Shipping Address:</strong> {{ currentOrder.adress }}</p>
+      <p><strong>Phone:</strong> {{ currentOrder.phone }}</p>
+      <p><strong>Total:</strong> ${{ currentOrder.total }}</p>
+    </div>
+
+    <!-- Live Animated Stepper -->
+    <div class="stepper-container">
+      <div class="progress-bg"></div>
+      <div class="progress-fill" [style.width.%]="progressWidth"></div>
+
+      <div class="steps-wrapper">
+        <div 
+          *ngFor="let step of steps; let i = index" 
+          class="step-item"
+          [class.completed]="i < currentStepIndex"
+          [class.active]="i === currentStepIndex"
+        >
+          <div class="circle">
+            <span>{{ i < currentStepIndex ? '✓' : step.icon }}</span>
+          </div>
+          <p class="title">{{ step.title }}</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="status-display">
+      Current  Status: <code>"{{ currentOrder.status }}"</code>
+    </p>
+  </div>
+
+</div>

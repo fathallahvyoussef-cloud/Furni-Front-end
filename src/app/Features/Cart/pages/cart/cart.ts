@@ -138,7 +138,7 @@ const data = {
   date : new Date(),
   adress : this.cartItems()[0].userId.adress,
   phone : this.cartItems()[0].userId.phone,
-  status : 'pending'
+  status : 'Pending'
 
 }
 console.log(data)

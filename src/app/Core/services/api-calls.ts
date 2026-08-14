@@ -29,9 +29,9 @@ export class ApiCalls {
     return this.http.delete<any>(url);
   }
 
-  getById(url: string, id: string) {
+  getById<T>(url: string, id: string) {
     
-    return this.http.get(`${url}/${id}`);
+    return this.http.get<T>(`${url}/${id}`);
     
   }
 

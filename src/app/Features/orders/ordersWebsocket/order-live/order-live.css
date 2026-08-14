@@ -1,0 +1,58 @@
+.tracker-card {
+  max-width: 680px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: system-ui, sans-serif;
+}
+
+.header { display: flex; justify-content: space-between; align-items: center; }
+.sub { color: #64748b; font-size: 0.85rem; margin-top: 2px; }
+
+.pulse-badge {
+  background: #e6f4ea;
+  color: #137333;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.order-details {
+  background: #f8fafc;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+  color: #334155;
+}
+.order-details p { margin: 4px 0; }
+
+.loading-state { text-align: center; padding: 2rem; color: #64748b; }
+
+.stepper-container { position: relative; margin: 2.5rem 0; }
+.progress-bg { position: absolute; top: 20px; left: 0; width: 100%; height: 4px; background: #e2e8f0; z-index: 1; }
+.progress-fill { position: absolute; top: 20px; left: 0; height: 4px; background: #2563eb; z-index: 2; transition: width 0.6s ease-in-out; }
+.steps-wrapper { display: flex; justify-content: space-between; position: relative; z-index: 3; }
+
+.step-item { display: flex; flex-direction: column; align-items: center; }
+.circle {
+  width: 44px; height: 44px; border-radius: 50%; background: #ffffff;
+  border: 3px solid #cbd5e1; display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; transition: all 0.4s ease;
+}
+
+.step-item.completed .circle { background: #2563eb; border-color: #2563eb; color: white; }
+.step-item.active .circle { border-color: #2563eb; transform: scale(1.15); box-shadow: 0 0 10px rgba(37, 99, 235, 0.4); }
+.title { margin-top: 8px; font-size: 0.85rem; color: #1e293b; font-weight: 500; }
+
+.status-display { font-size: 0.85rem; color: #64748b; text-align: right; }
+.status-display code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; color: #0f172a; }
+
+.admin-box { margin-top: 2rem; padding-top: 1rem; border-top: 1px dashed #e2e8f0; }
+.admin-title { font-size: 0.8rem; font-weight: bold; color: #475569; margin-bottom: 8px; }
+.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.patch-btn { padding: 6px 12px; background: #0f172a; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 0.75rem; }
+.patch-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
