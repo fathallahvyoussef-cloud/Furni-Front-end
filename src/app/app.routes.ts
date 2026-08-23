@@ -20,8 +20,8 @@ export const routes: Routes = [
   { path: 'main', component: MainComponent },
   { path: 'login', component: Login },
   { path: 'signup', component: Signup },
-  { path: 'payment/:orderId',canActivate : [authGuard], component: Payment },
-  { path: 'payment-confirm/:orderId',canActivate : [authGuard], component: PaymentConfirm },
+  { path: 'payment/:orderId',canActivate : [authGuard,userGuard], component: Payment },
+  { path: 'payment-confirm/:orderId',canActivate : [authGuard,userGuard], component: PaymentConfirm },
 
 
   { path: 'home', component: Home },
