@@ -1,5 +1,7 @@
 export type OrderStatusType = 'Pending' | 'Order Placed' |'Processing' | 'In Transit' | 'Delivered';
 
+export type PaymentStatusType = 'Pending' | 'Paid' | 'Failed';
+
 export interface OrderItem {
   productId: string;
   quantity: number;
@@ -15,4 +17,6 @@ export interface Order {
   adress: string;
   phone: string;
   status: OrderStatusType;
+  paymentStatus: PaymentStatusType;
+  stripePaymentIntentId: string;
 }

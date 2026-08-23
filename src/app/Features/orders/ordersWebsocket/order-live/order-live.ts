@@ -54,7 +54,6 @@ export class OrderLive {
   ngOnInit(): void {
         const id = this.route.snapshot.paramMap.get('id');
 if (id) {
-  console.log('Fetching order with ID:', id);
        //  Initial load via HTTP
       this.api.getById<Order>(this.url,id).subscribe({
         next: (order) => {

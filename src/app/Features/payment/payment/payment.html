@@ -1,0 +1,46 @@
+<!-- Start Payment Hero Section -->
+<section class="hero payment-hero">
+  <div class="container">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-lg-5">
+        <div class="intro-excerpt">
+          <h1>Complete your <span class="d-block">payment</span></h1>
+          <p class="mb-4">
+            Your selected items are almost on their way. Enter your payment details below to complete
+            your order securely.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="payment-card">
+          <div class="payment-card-heading">
+            <span class="payment-card-icon" aria-hidden="true">&#128274;</span>
+            <div>
+              <h2>Secure checkout</h2>
+              <p>All payments are securely processed by Stripe.</p>
+            </div>
+          </div>
+
+          <div class="loading-state" *ngIf="initializing == true">
+            Loading payment form...
+          </div>
+
+          <div *ngIf="!errorMessage" #paymentElementRef class="payment-element"></div>
+
+          <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+          <div class="actions" *ngIf="!initializing && !errorMessage">
+            <button class="btn btn-white-outline cancel-btn" (click)="cancel()" [disabled]="loading">
+              Cancel
+            </button>
+            <button class="btn btn-secondary pay-btn" (click)="pay()" [disabled]="loading">
+              {{ loading ? 'Processing...' : 'Pay now' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Payment Hero Section -->

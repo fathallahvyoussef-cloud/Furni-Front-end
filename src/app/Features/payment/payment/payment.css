@@ -1,0 +1,126 @@
+.payment-hero {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+.payment-hero .intro-excerpt {
+  max-width: 460px;
+}
+
+.payment-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 18px 45px rgba(25, 43, 36, 0.2);
+}
+
+.payment-card-heading {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e6e9e7;
+}
+
+.payment-card-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  background: #e9f0ed;
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
+.payment-card h2 {
+  margin: 0 0 0.25rem;
+  color: #2f2f2f;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.payment-card-heading p,
+.loading-state {
+  margin: 0;
+  color: #6a6a6a;
+  font-size: 0.9rem;
+}
+
+.loading-state {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.payment-element {
+  min-height: 40px;
+  margin: 1.25rem 0;
+}
+
+.error {
+  margin: 1rem 0;
+  color: #b42318;
+  font-size: 0.9rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.actions .btn {
+  padding: 0.75rem 1.25rem;
+}
+
+.cancel-btn {
+  flex: 1;
+  color: #2f2f2f !important;
+  border-color: #d7dfdb !important;
+}
+
+.cancel-btn:hover {
+  color: #ffffff !important;
+  background: #ffffff1a !important;
+  border-color: #ffffff !important;
+}
+
+.pay-btn {
+  flex: 2;
+}
+
+.pay-btn:disabled,
+.cancel-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 991.98px) {
+  .payment-hero {
+    display: block;
+    min-height: auto;
+  }
+
+  .payment-card {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .payment-hero {
+    padding: 3rem 0;
+  }
+
+  .payment-card {
+    padding: 1.5rem;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+}

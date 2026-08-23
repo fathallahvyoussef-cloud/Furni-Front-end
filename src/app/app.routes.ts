@@ -8,6 +8,8 @@ import { authGuard } from './Core/guards/auth-guard';
 import { adminGuard } from './Core/guards/admin-guard';
 import { userGuard } from './Core/guards/user-guard';
 import { Orders } from './Features/orders/orders';
+import { Payment } from './Features/payment/payment/payment';
+import { PaymentConfirm } from './Features/payment/payment-confirm/payment-confirm';
 
 
 
@@ -18,6 +20,10 @@ export const routes: Routes = [
   { path: 'main', component: MainComponent },
   { path: 'login', component: Login },
   { path: 'signup', component: Signup },
+  { path: 'payment/:orderId',canActivate : [authGuard], component: Payment },
+  { path: 'payment-confirm/:orderId',canActivate : [authGuard], component: PaymentConfirm },
+
+
   { path: 'home', component: Home },
   { path : 'orders', canActivate : [authGuard] ,
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../Shared/UI/button/button';
 import { CommonModule } from '@angular/common';
-import { Modal } from '../../Shared/UI/modal/modal';
+import { Modal } from '../../Shared/modal/modal';
 import { Page1 } from '../../Shared/UI/page1/page1';
 import { Table } from '../../Shared/UI/table/table';
 import { FormField } from '../../Shared/UI/form-field/form-field';
@@ -13,7 +13,7 @@ import { Toast } from '../../Shared/UI/toast/toast';
 @Component({
   selector: 'app-main-component',
   imports: [ReactiveFormsModule,ButtonComponent,CommonModule,
-    Page1,Modal,Table,FormField,Toast],
+    Page1,Table,FormField,Toast],
   templateUrl: './main-component.html',
   styleUrl: './main-component.css',
 })

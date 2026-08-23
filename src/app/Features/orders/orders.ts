@@ -23,7 +23,7 @@ export class Orders {
 
   constructor( private apicall : ApiCalls,  private router : Router, private auth : AuthService) {}
 
-  buttonIcons: { [key: string]: string } = {};
+  buttonIcons: { [key: string]: string } = { };
   order : any = {}
   
 

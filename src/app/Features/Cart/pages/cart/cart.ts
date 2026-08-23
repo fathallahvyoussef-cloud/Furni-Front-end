@@ -2,7 +2,7 @@ import { Component, computed, inject, Input, signal, Signal } from '@angular/cor
 import { ApiCalls } from '../../../../Core/services/api-calls';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { filter, map } from 'rxjs';
+import {  map } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth-service';
 
 @Component({
@@ -22,12 +22,12 @@ export class Cart {
   ) {}
     private auth = inject(AuthService);
 
-  
 
   user$ = this.auth.user$
   user : any
   cartItems = signal<any[]>([])  
   cartCount : any
+  orderId : any
   
 
 
@@ -131,6 +131,8 @@ export class Cart {
 //check out
 checkout() : void{
 
+ 
+
 const data = {
   userId : this.user.id,
   items : this.cartItems()[0].items,
@@ -138,14 +140,21 @@ const data = {
   date : new Date(),
   adress : this.cartItems()[0].userId.adress,
   phone : this.cartItems()[0].userId.phone,
-  status : 'Pending'
+  status : 'Pending',
+  paymentStatus : 'Pending'
 
 }
-console.log(data)
+  
   this.api.post(this.url1+'/create',data).subscribe({
 
     next : (res) => {
+      
+      this.orderId = res.orderId;
       alert(res.message)
+
+      // navigate to payment page
+      this.router.navigate(['/payment', this.orderId]);
+      // refresh the cart items after checkout
       this.getCarts()
       
     },
@@ -153,8 +162,14 @@ console.log(data)
     error : (err) => {
       alert(err.message)
     }
-  })
+  }) 
+
+  
 }
+
+
+
+
 
 
 
