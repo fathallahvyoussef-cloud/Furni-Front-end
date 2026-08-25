@@ -11,4 +11,6 @@ import { Footer } from './Core/Layout/footer/footer';
 })
 export class App {
   protected readonly title = signal('reusable');
+
+ 
 }
