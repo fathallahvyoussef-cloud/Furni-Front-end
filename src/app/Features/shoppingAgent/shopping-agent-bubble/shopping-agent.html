@@ -1,0 +1,32 @@
+<div class="message" [class.message--user]="message.role === 'user'">
+  <div class="message__bubble" [class.message__bubble--error]="message.error">
+    <span *ngIf="message.waiting" class="message__typing" aria-label="Assistant is typing">
+      <span></span><span></span><span></span>
+    </span>
+
+    <span *ngIf="!message.waiting && message.activeToolLabel" class="message__tool-status">
+      {{ message.activeToolLabel }}
+    </span>
+
+    <p *ngIf="!message.waiting && message.text">
+      {{ message.text }} <span *ngIf="message.streaming" class="message__cursor"></span>
+    </p>
+  </div>
+  
+  <div class="message__products" *ngIf="message.products?.length" >
+        
+    <div *ngFor="let product of message.products; let i=index" >
+
+        <app-product-card
+        [number]="i + 1"
+      [image]="product.image"
+      [title]="product.name"
+      [price]="product.price"
+      [id]="product.id"
+      (addToCart)="addToCart.emit($event)"
+    />
+
+     </div>
+  </div>
+  
+</div>

@@ -1,0 +1,60 @@
+<div  class="assistant" [class.assistant--open]="isOpen">
+  <button
+    class="assistant__launcher"
+    type="button"
+    (click)="toggle()"
+    [attr.aria-expanded]="isOpen"
+    aria-label="Open shopping assistant"
+  >
+    <span *ngIf="chat.cartItemCount() as count" class="assistant__badge">{{ count }}</span>
+    Ask for help finding something
+  </button>
+
+  <section class="assistant__panel" *ngIf="isOpen" role="dialog" aria-label="Shopping assistant">
+    <header class="assistant__header">
+      <h3>Shopping assistant</h3>
+      <button type="button" (click)="toggle()" aria-label="Close">✕</button>
+    </header>
+
+    <div class="assistant__messages">
+      <p class="assistant__empty" *ngIf="chat.messages().length === 0">
+        Tell me what you're looking for — e.g. "a wood table  under $500."
+      </p>
+
+      <app-shopping-agent-bubble
+        *ngFor="let message of chat.messages()"
+          [message]="message"
+            (addToCart)="onAddToCart($event)"
+
+
+      />
+      <div #scrollAnchor></div>
+    </div>
+
+    <form class="assistant__composer" (ngSubmit)="submit()">
+      <input
+        type="text"
+        name="draft"
+        placeholder="Describe what you need..."
+        [(ngModel)]="draft"
+        [disabled]="chat.isStreaming()"
+        autocomplete="off"
+      />
+      <button
+        *ngIf="!chat.isStreaming()"
+        type="submit"
+        [disabled]="!draft.trim()"
+      >
+        Send
+      </button>
+      <button
+        *ngIf="chat.isStreaming()"
+        type="button"
+        class="assistant__stop"
+        (click)="stop()"
+      >
+        Stop
+      </button>
+    </form>
+  </section>
+</div>

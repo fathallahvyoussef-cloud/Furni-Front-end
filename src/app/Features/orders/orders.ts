@@ -11,10 +11,12 @@ import { Router } from '@angular/router';
 import { ApiCalls } from '../../Core/services/api-calls';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth/services/auth-service';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-orders',
-  imports: [CommonModule,MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule,MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule, MatTableModule, MatButtonModule, MatIconModule,MatTooltipModule],
   standalone: true,
   templateUrl: './orders.html',
   styleUrl: './orders.css',
@@ -25,6 +27,7 @@ export class Orders {
 
   buttonIcons: { [key: string]: string } = { };
   order : any = {}
+  nextStatus : string = ""
   
 
   orders = signal<any[]>([]);
@@ -46,7 +49,7 @@ export class Orders {
 
 
   ngAfterViewInit() {
-    this.getAllOrders();
+    // this.getAllOrders();
     this.dataSource.sort = this.sort;
     
   }
@@ -99,7 +102,7 @@ export class Orders {
                                     // update order
   updateOrder(id: any) {
   
-    let nextStatus : string = ""
+    
             this.order = this.getOrderById(id)
 
 
@@ -108,37 +111,37 @@ export class Orders {
             
 
             
-            nextStatus = 'Order Placed';
+            this.nextStatus = 'Order Placed';
             this.buttonIcons[id] = 'inventory';
            
 
           } else if (this.order.status === 'Order Placed') {
 
 
-            nextStatus = 'Processing';
+            this.nextStatus = 'Processing';
             this.buttonIcons[id] = 'local_shipping';
             
 
           } else if (this.order.status === 'Processing') {
 
-            nextStatus = 'In Transit';
+            this.nextStatus = 'In Transit';
             this.buttonIcons[id] = 'check_circle';
             
 
           } else if (this.order.status === 'In Transit') {
             
 
-            nextStatus = 'Delivered';
+            this.nextStatus = 'Delivered';
             
             
           }
 
-          console.log(nextStatus)
-           this.order = { ...this.order, status: nextStatus };
+          
+           this.order = { ...this.order, status: this.nextStatus };
 
         // Update the Signal collection 
         this.orders.update(allOrders =>
-          allOrders.map(o => o._id === id ? { ...o, status: nextStatus } : o)
+          allOrders.map(o => o._id === id ? { ...o, status: this.nextStatus } : o)
         );
           
 

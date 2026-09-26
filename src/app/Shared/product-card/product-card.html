@@ -1,27 +1,28 @@
 <!-- product-card.html — remove the outer wrappers -->
 <a class="product-item" (click)="onSelect()" style="position: relative; display: block;">
-  
-  <img 
-    [src]="image" 
-    class="img-fluid product-thumbnail"
-    [alt]="title"
-  >
+
+  <span class="product-card__number" *ngIf="number">#{{ number }}</span>
+  <img [ngSrc]="image" class="img-fluid product-thumbnail" [alt]="title" loading="lazy" height="300" width="300">
 
   <h3 class="product-title">{{ title }}</h3>
 
   <strong class="product-price">{{ price }} $</strong>
-
   
+  <div *ngIf="getRole()=='user'">
+    <button class="product-card__cta" type="button" *ngIf="showAddToCart" (click)="onAddToCart()">add to cart</button>
+  </div>
 
   <span *ngIf="getRole()=='user'" class="icon-cross" (click)="$event.stopPropagation(); productDetail(id)">
     <img src="assets/images/cross.svg" class="img-fluid">
   </span>
 
-  <span *ngIf="getRole()=='admin'" class="icon-edit" (click)="$event.stopPropagation(); editProduct(id)" style="position: absolute; top: 15px; right: 15px; width: 20px; cursor: pointer;">
+  <span *ngIf="getRole()=='admin'" class="icon-edit" (click)="$event.stopPropagation(); editProduct(id)"
+    style="position: absolute; top: 15px; right: 15px; width: 20px; cursor: pointer;">
     <img src="assets/images/edit.svg" class="img-fluid">
   </span>
 
-  <span *ngIf="getRole()=='admin'" class="icon-edit" (click)="$event.stopPropagation(); deleteProduct(id)" style="position: absolute; top: 15px; right: 45px; width: 20px; cursor: pointer;">
+  <span *ngIf="getRole()=='admin'" class="icon-edit" (click)="$event.stopPropagation(); deleteProduct(id)"
+    style="position: absolute; top: 15px; right: 45px; width: 20px; cursor: pointer;">
     <img src="assets/images/delete.svg" class="img-fluid">
   </span>
 

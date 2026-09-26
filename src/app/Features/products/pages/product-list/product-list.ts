@@ -4,19 +4,37 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiCalls } from '../../../../Core/services/api-calls';
 import { AuthService } from '../../../auth/services/auth-service';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
+
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductCard,CommonModule],
+  imports: [ProductCard,CommonModule,MatPaginatorModule],
   standalone: true,
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
 })
 export class ProductList implements OnInit {
 
+
+    
    products = signal<any[]>([]);
    url = "https://furni-back-end.onrender.com/products"
 
+
+     // pagination state
+
+   pageIndex = signal(0);
+  pageSize = signal(9);
+  pageSizeOptions = [6, 9, 12, 24];
+
+   // slice of products for the current page
+  pagedProducts = computed(() => {
+    const start = this.pageIndex() * this.pageSize();
+    const end = start + this.pageSize();
+    return this.products().slice(start, end);
+  });
 
 
        private auth = inject(AuthService);
@@ -33,9 +51,16 @@ export class ProductList implements OnInit {
   getAllProducts() {
     this.apicall.get(this.url).subscribe((res) => {
       this.products.set(res);
+      this.pageIndex.set(0);
     });
   }
   
+
+onPageChange(event: any): void {
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+  }
+
 
   handleProduct(description: string) {
   console.log('Selected product description:', description);
@@ -66,6 +91,10 @@ addProduct() : void{
 getRole() : string | null{
     return this.auth.getRole()
   }
+
+  trackByProductId(index: number, product: any): string {
+  return product._id;
+}
 
  
 }

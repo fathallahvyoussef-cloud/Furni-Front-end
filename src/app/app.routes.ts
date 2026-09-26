@@ -10,6 +10,7 @@ import { userGuard } from './Core/guards/user-guard';
 import { Orders } from './Features/orders/orders';
 import { Payment } from './Features/payment/payment/payment';
 import { PaymentConfirm } from './Features/payment/payment-confirm/payment-confirm';
+import { Chat } from './Features/shoppingAgent/chat/chat';
 
 
 
@@ -22,7 +23,7 @@ export const routes: Routes = [
   { path: 'signup', component: Signup },
   { path: 'payment/:orderId',canActivate : [authGuard,userGuard], component: Payment },
   { path: 'payment-confirm/:orderId',canActivate : [authGuard,userGuard], component: PaymentConfirm },
-
+  {path : 'assistant', component : Chat}, 
 
   { path: 'home', component: Home },
   { path : 'orders', canActivate : [authGuard] ,
